@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Encryption Decryption App</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      </head>
+<body>
+
+    <div class="jumbotron text-center">
+        <h1>Encryption Decryption Page</h1>
+        <p>Get your Text Encrypted/Decrypted</p> 
+    </div>
+
+    <div class="container">
+        <h2>Welcome to </h2>
+        <form class="form-horizontal" action="/action_page.php">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="encrypt">Enter Text:</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="encrypt" placeholder="Text to encrypt or decrypt" name="pwd">
+            </div>
+          </div>
+          <div class="form-group">        
+            <div class="container">
+                <input type="button col-sm-2" class="btn btn-info" value="Encrypt" onclick=" clickbtncall()">
+                <input type="button col-sm-8" class="btn btn-info" value="Decrypt" onclick=" clickbtncall2()">
+                <input type="button col-sm-8" class="btn btn-info" value="Reset" onclick=" clickbtncallReset()">
+
+            </div>
+          </div>
+        </form>
+      </div>
+
+<h2 id="heading1"></h2>
+
+</body>
+</html>
+
+ 
+
+
+<script type="text/javascript">
+
+function clickbtncall(){
+//urlval = "http://172.20.30.112:5000/encrypt?text=${valueof}";
+console.log($("#encrypt").val());
+$.ajax({url:  "http://172.20.30.112:5000/encrypt?text="  + $("#encrypt").val(), success: function(result){
+    document.getElementById('heading1').innerText = "";
+    $("#heading1").append(result);
+    $("#encrypt").val('');
+
+    console.log(result);
+  }});
+}
+
+function clickbtncall2(){
+//urlval = "http://127.0.0.1:5000/encrypt?text=${valueof}";
+console.log($("#encrypt").val());
+$.ajax({url:  "http://172.20.30.112:5000/decrypt?text="  + $("#encrypt").val(), success: function(result){
+    document.getElementById('heading1').innerText = "";
+    $("#heading1").append(result);
+    $("#encrypt").val('');
+    console.log(result);
+  }});
+}
+
+function clickbtncallReset(){    
+    $('input[type=text]').each(function() {
+        $(this).val('');
+    });
+    document.getElementById('heading1').innerText = "";
+}
+</script>
